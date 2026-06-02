@@ -17,4 +17,4 @@ I grepped a Laravel project I work on and found 143 generic-PHPDoc annotations a
 
 ## 📎 Read Full
 
-[PHP Generics Already Exist: They're Just Hidden in PHPDoc](https://dev.to/tegos/PLACEHOLDER)
+[PHP Generics Already Exist: They're Just Hidden in PHPDoc](https://dev.to/tegos/php-generics-already-exist-theyre-just-hidden-in-phpdoc-2l0c)
