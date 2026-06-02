@@ -1,6 +1,6 @@
-# PHP Generics Already Exist — They're Just Hidden in PHPDoc
+# PHP Generics Already Exist: They're Just Hidden in PHPDoc
 
-![PHP Generics Already Exist — They're Just Hidden in PHPDoc](assets/poster.jpg)
+![PHP Generics Already Exist: They're Just Hidden in PHPDoc](assets/poster.jpg)
 
 Every Laravel dev has already written PHP generics — we just hid them inside `@template` and `Collection<…>` comments and pretended it didn't count. A new RFC wants to make them real syntax.
 
@@ -17,4 +17,4 @@ I grepped a Laravel project I work on and found 143 generic-PHPDoc annotations a
 
 ## 📎 Read Full
 
-[PHP Generics Already Exist — They're Just Hidden in PHPDoc](https://dev.to/tegos/PLACEHOLDER)
+[PHP Generics Already Exist: They're Just Hidden in PHPDoc](https://dev.to/tegos/PLACEHOLDER)
