@@ -89,7 +89,7 @@ That `/** @var */` exists only to feed the analyzer. And it's not just my code: 
 
 Heads up: the RFC is still *Under Discussion* (v0.22), with an [open php-src PR](https://github.com/php/php-src/pull/21969) that works today. The blocker isn't the code. It's a small group on internals who don't love the erased approach.
 
-We've babysat doc blocks and worked around analyzer quirks for years because generics are worth it. The implementation is ready, the syntax is proven, and the demand has been there for a decade. PHP developers already write generics every day. The only question left is whether they keep living in comments, or finally become part of the language. I know which one I want in 2026.
+We've babysat doc blocks and worked around analyzer quirks for years because generics are worth it. The implementation is ready, and the proposed syntax is already familiar to PHP developers using PHPStan and Psalm. PHP developers already write generics every day. The only question left is whether they keep living in comments, or finally become part of the language. I know which one I want in 2026.
 
 ## TL;DR
 
@@ -97,7 +97,7 @@ We've babysat doc blocks and worked around analyzer quirks for years because gen
 - PHP generics already exist in `@template` / `<…>` PHPDoc your analyzer reads. 200k+ files on GitHub use them.
 - Adding them natively is hard: reified runtime checks are expensive, and ~6 analyzers disagree with no shared spec. On the agenda since 2014.
 - The RFC picks **bound erasure**: checked statically, erased at runtime, `Box<int>` ≡ `Box<string>`, zero runtime cost.
-- Old code keeps working; the turbofish `::<…>` is optional everywhere.
+- Existing code keeps working; the turbofish `::<…>` remains optional.
 
 💡 Watch Brent Roose's [video walkthrough](https://www.youtube.com/watch?v=4wpW98S2xJQ) and read the [RFC](https://wiki.php.net/rfc/bound_erased_generic_types) before the vote.
 
