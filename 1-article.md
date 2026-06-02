@@ -26,7 +26,7 @@ There are two ways to ship generics. **Reified** keeps the type at runtime, so `
 
 Generics have been on the PHP internals agenda since **January 2014**. Multiple RFCs, multiple implementations, none merged. Why?
 
-- **Runtime type checks are expensive.** Reified generics mean PHP must store and verify type arguments on every instance. Nikita Popov built a prototype and hit superlinear type-checking cost and heavy per-instance memory. PHP is request-per-process — you pay that on every request.
+- **Runtime type checks are expensive.** Reified generics mean PHP must store and verify type arguments on every instance. Nikita Popov built a prototype and hit superlinear type-checking cost and heavy per-instance memory. PHP is request-per-process, so you pay that on every request.
 - **No shared spec.** PHPStan, Psalm, Mago, and PhpStorm have spent years guessing at the same `@template` syntax, each a little differently. There's no official standard to follow, so an edge case that works in one tool can quietly break in another.
 - **A decade of stalls.** The 2016 reified RFC sat in draft for ten years. The 2024 reified continuation stalled on cross-file inference. Each attempt paid the syntax cost and shipped no syntax.
 
@@ -34,9 +34,9 @@ Generics have been on the PHP internals agenda since **January 2014**. Multiple 
 
 The RFC, by Seifeddine Gmati (author of the Mago analyzer), adds native syntax: `class Box<T>`, bounds `<T : Animal>`, defaults `<K = string>`, variance `<+T>` / `<-T>`, and an optional turbofish `::<…>`.
 
-The key word is **bound-erased**. At runtime `Box<int>` and `Box<string>` are the same class — the type argument is erased down to its bound (or `mixed`). Checking happens statically, like Java or TypeScript. Reified was rejected on purpose: as the RFC puts it, *"we don't need runtime type checks."* Generics are a static-analysis tool, not a runtime one.
+The key word is **bound-erased**. At runtime `Box<int>` and `Box<string>` are the same class. The type argument is erased down to its bound (or `mixed`). Checking happens statically, like Java or TypeScript. Reified was rejected on purpose: as the RFC puts it, *"we don't need runtime type checks."* Generics are a static-analysis tool, not a runtime one.
 
-So your comment becomes the signature, and old code keeps working — the turbofish is optional everywhere:
+So your comment becomes the signature, and old code keeps working. The turbofish is optional everywhere:
 
 ```php
 // Today: the type parameter lives in a doc block
@@ -56,7 +56,7 @@ interface Repository<T>
 }
 ```
 
-## It's Not New — Just Look at Your Own Code
+## It's Not New: Just Look at Your Own Code
 
 I grepped a Laravel 10 project I work on (PHP 8.1, Larastan level 5). The result: **143 generic-PHPDoc annotations and 0 of my own `@template`**. So the project *consumes* generics everywhere (mostly `Collection<…>`) but never declares them. Here's a real action from it:
 
@@ -93,7 +93,7 @@ We've babysat doc blocks and worked around analyzer quirks for years because gen
 
 ## TL;DR
 
-- A generic is a type with a hole — `Box<T>` instead of one class per type. Old idea (Java, C#, TS).
+- A generic is a type with a hole: `Box<T>` instead of one class per type. Old idea (Java, C#, TS).
 - PHP generics already exist in `@template` / `<…>` PHPDoc your analyzer reads. 200k+ files on GitHub use them.
 - Adding them natively is hard: reified runtime checks are expensive, and ~6 analyzers disagree with no shared spec. On the agenda since 2014.
 - The RFC picks **bound erasure**: checked statically, erased at runtime, `Box<int>` ≡ `Box<string>`, zero runtime cost.
